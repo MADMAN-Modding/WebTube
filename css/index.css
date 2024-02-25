@@ -14,3 +14,30 @@ h1 {
     margin-left: auto;
     margin-right: auto;
 }
+
+.video {
+    margin-top: 40%;
+    display: inline;
+    color: white;
+}
+
+.download,
+.delete {
+    margin-left: 10px;
+    height: 30px;
+    display: inline;
+}
+
+input {
+    display: inline;
+}
+
+p {
+    display: inline;
+    color: white;
+}
+
+.delete:hover,
+.download:hover {
+    cursor: pointer;
+}
