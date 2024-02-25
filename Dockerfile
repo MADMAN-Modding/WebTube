@@ -26,6 +26,7 @@ WORKDIR /var/www/localhost/htdocs
 
 # Expose port 80 for Apache
 EXPOSE 80/tcp
+EXPOSE 90/tcp
 
 # Runs the startup commands
 ENTRYPOINT ["./entrypointCommands.sh"]
