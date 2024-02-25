@@ -17,7 +17,9 @@
     </form>
     <?php
 
-    mkdir("videos");
+    // Change for your use
+    // mkdir("videos");
+    mkdir("/var/www/localhost/htdocs/videos");
 
     // I know, I should filter
     if (isset($_POST["url"])) {

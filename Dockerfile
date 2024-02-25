@@ -8,6 +8,7 @@ RUN apk --update add \
     php-apache2 \
     git \
     neofetch \
+    yt-dlp\
     && rm -rf /var/cache/apk/* \
     && rm -r /var/www/localhost/htdocs/*
 
