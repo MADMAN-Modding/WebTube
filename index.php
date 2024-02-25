@@ -26,7 +26,7 @@
 
     // I know, I should filter
     if (isset($_POST["url"])) {
-      exec("cd Videos/ && yt-dlp -f mp4 $_POST[url]");
+      exec("cd $dir && yt-dlp -f mp4 $_POST[url]");
     }
     if ($videoFinder = opendir($dir)) {
 
