@@ -17,15 +17,18 @@
     </form>
     <?php
 
-    // Change for your use
+   // Change for your use and in fileHandler.php
+    $dir = "/var/www/localhost/htdocs/videos";
+
+ 
     // mkdir("videos");
-    mkdir("/var/www/localhost/htdocs/videos");
+    mkdir($dir);
 
     // I know, I should filter
     if (isset($_POST["url"])) {
       exec("cd Videos/ && yt-dlp -f mp4 $_POST[url]");
     }
-    if ($videoFinder = opendir('videos/')) {
+    if ($videoFinder = opendir($dir)) {
 
       // Makes the videpList array
       $videoList = [];

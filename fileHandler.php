@@ -3,6 +3,6 @@
 $video = $_GET["delete"];
 // $video = $_GET["download"];
 
-unlink("videos/" . $video);
+unlink("/var/www/localhost/htdocs/videos/" . $video);
 
 echo "";
