@@ -19,6 +19,7 @@
 
    // Change for your use and in fileHandler.php
     $dir = "/var/www/localhost/htdocs/videos";
+    // $dir = "videos";
 
  
     // mkdir("videos");
@@ -39,14 +40,14 @@
         $videoList[] = $video;
       }
 
+      // Alphabetically sorts the videos
+      natsort($videoList);
+
       // Removes . and .. from the array
       array_splice($videoList, 0, 2);
 
       // Closes the directory to save resources
       closedir($videoFinder);
-
-      // Alphabetically sorts the consoles
-      natsort($videoList);
     }
 
     echo "<div id=\"videos\">";
