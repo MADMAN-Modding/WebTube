@@ -18,8 +18,8 @@
     <?php
 
    // Change for your use and in fileHandler.php
-    $dir = "/var/www/localhost/htdocs/videos";
-    // $dir = "videos";
+    // $dir = "/var/www/localhost/htdocs/videos";
+    $dir = "videos";
 
  
     // mkdir("videos");

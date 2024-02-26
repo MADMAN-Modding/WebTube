@@ -1,7 +1,7 @@
 <?php
 
-$dir = "/var/www/localhost/htdocs/videos/";
-// $dir = "/videos";
+// $dir = "/var/www/localhost/htdocs/videos/";
+$dir = "videos/";
 
 $video = $_GET["delete"];
 
