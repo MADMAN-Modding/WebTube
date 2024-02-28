@@ -11,17 +11,16 @@
   </head>
 
   <body>
-    <form method="post">
-      <input type="text" name="url" id="downloader">
-      <p> Enter the url of the video</p>
-    </form>
+    <input type="text" name="url" id="downloader">
+    <p> Enter the url of the video</p>
+    <button onclick="fileDownload()">Download!</button>
     <?php
 
-   // Change for your use and in fileHandler.php
+    // Change for your use and in fileHandler.php
     // $dir = "/var/www/localhost/htdocs/videos";
     $dir = "videos";
 
- 
+
     // mkdir("videos");
     mkdir($dir);
 
