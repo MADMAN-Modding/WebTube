@@ -55,7 +55,7 @@ function videoOutput($directory)
 
         rename("videos/$videoOldName", "videos/$video");
 
-        echo "<h3 class=\"video\" id=\"$video\">$video |". fileSizeCalc($video) ." <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h3><br> ";
+        echo "<h3 class=\"video\" id=\"$video\">$video | ". fileSizeCalc($video) ."<a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h3><br> ";
 
     }
 }
