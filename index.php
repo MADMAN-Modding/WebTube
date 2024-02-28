@@ -52,7 +52,18 @@
     echo "<div id=\"videos\">";
 
     foreach ($videoList as $video) {
-      echo "<h3 class=\"video\" id=\"$video\">$video<a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick=\"fileDelete('$video')\"/></h3><br> ";
+
+      // Gets the file size in GB with two decimal places 
+      $fileSize = filesize("videos/$video");
+      if ($fileSize >= 1073741824) {
+        $fileSize = ((int) (($fileSize / 1073741824) * 100)) / 100;
+        $dataValue = "GB";
+      } else {
+        $fileSize = ((int) (($fileSize / 1048576) * 100)) / 100;
+        $dataValue = "MB";
+      }
+
+      echo "<h3 class=\"video\" id=\"$video\">$video | $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick=\"fileDelete('$video')\"/></h3><br> ";
     }
 
     echo "</div>";
