@@ -63,7 +63,18 @@
         $dataValue = "MB";
       }
 
-      echo "<h3 class=\"video\" id=\"$video\">$video | $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick=\"fileDelete('$video')\"/></h3><br> ";
+      // Gets rid of illegal characters cause they're annoying
+      $illegalChars = array("'", '"', "&");
+
+      $videoOldName = $video;
+
+      foreach($illegalChars as $char) {
+        $video = str_replace($char, "", $video);
+      }
+
+      rename("videos/$videoOldName", "videos/$video");
+      
+      echo "<h3 class=\"video\" id=\"$video\">$video | $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h3><br> ";
     }
 
     echo "</div>";

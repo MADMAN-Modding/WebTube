@@ -4,7 +4,7 @@ var xhr = new XMLHttpRequest();
 function fileDelete(file) {
 
     // Calls the refresh function
-    xhrRefresh(file);
+    xhrRefresh("videos");
 
     // Sends the delete request
     xhr.open('GET', 'fileHandler.php?delete=' + file);
