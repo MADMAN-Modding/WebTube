@@ -82,7 +82,7 @@ class FileHandler
                 $this->row = false;
             }
 
-            if ($i % 3 === 0 && $this->row) {
+            if ($i % 5 === 0 && $this->row) {
                 echo "<div class=\"row\">\n";
                 $this->row = false;
             }
