@@ -42,3 +42,10 @@ function xhrRefresh(id) {
         }
     }
 }
+
+// To run on the page load, wahoo
+xhrRefresh("videos");
+
+xhr.open('GET', 'fileHandler.php?refresh="value"');
+
+xhr.send();

@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
   <title>Web YT-DLP</title>
+  <!--Bootstrap5-->
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <link type="text/css" rel="stylesheet" href="css/index.css" />
 </head>
 
@@ -17,66 +25,14 @@
   // $dir = "/var/www/localhost/htdocs/videos";
   $dir = "videos";
 
-
-  // mkdir("videos");
   mkdir($dir);
-
-  // I know, I should filter
-  if (isset($_POST["url"])) {
-    exec("cd $dir && yt-dlp -f mp4 $_POST[url]");
-  }
-  if ($videoFinder = opendir($dir)) {
-
-    // Makes the videpList array
-    $videoList = [];
-
-    // Reads the directory till the end
-    while (false !== ($video = readdir($videoFinder))) {
-      // Adds each video to the list
-      $videoList[] = $video;
-    }
-
-    // Alphabetically sorts the videos
-    natsort($videoList);
-
-    // Removes . and .. from the array
-    array_splice($videoList, 0, 2);
-
-    // Closes the directory to save resources
-    closedir($videoFinder);
-  }
-
-  echo "<div id=\"videos\">";
-
-  foreach ($videoList as $video) {
-
-    // Gets the file size in GB with two decimal places 
-    $fileSize = filesize("videos/$video");
-    if ($fileSize >= 1073741824) {
-      $fileSize = ((int) (($fileSize / 1073741824) * 100)) / 100;
-      $dataValue = "GB";
-    } else {
-      $fileSize = ((int) (($fileSize / 1048576) * 100)) / 100;
-      $dataValue = "MB";
-    }
-
-    // Gets rid of illegal characters cause they're annoying
-    $illegalChars = array("'", '"', "&");
-
-    $videoOldName = $video;
-
-    foreach ($illegalChars as $char) {
-      $video = str_replace($char, "", $video);
-    }
-
-    rename("videos/$videoOldName", "videos/$video");
-
-    echo "<h3 class=\"video\" id=\"$video\">$video | $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a><img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h3><br> ";
-  }
-
-  echo "</div>";
   ?>
-<script src="js/index.js"></script>
+
+  <div id="videos">
+  </div>
+  <script src="js/index.js"></script>
+
+  
 </body>
 
 </html>
