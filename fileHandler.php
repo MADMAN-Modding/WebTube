@@ -5,8 +5,9 @@
 
 $handler = new FileHandler();
 
-if (isset($_GET["delete"])) {
-    unlink($handler->directory . $_GET["delete"]);
+if (isset($_GET["deleteVideo"]) || isset($_GET["deleteImage"])) {
+    unlink($handler->directory . $_GET["deleteVideo"]);
+    unlink($handler->directory . $_GET["deleteImage"]);
     $handler->videoOutput();
 }
 
@@ -76,7 +77,7 @@ class FileHandler
 
             rename("videos/$videoOldName", "videos/$video");
 
-            if ($i % 5 === 0 && !$this->row && $i != 0) {
+            if ($i + 1 % 5 === 0 && !$this->row && $i != 0) {
                 echo "</div>";
                 $this->row = true;
             }
@@ -85,13 +86,17 @@ class FileHandler
                 echo "<div class=\"row\">\n";
                 $this->row = false;
             }
+
             if (str_contains($video, ".mp4")) {
+
+
                 echo "<div class=\"col-sm-4\">\n";
                 // echo "<div class=\"videoContainer\">";
                 echo "<a href=\"$this->directory/$video\" target=\"_blank\"><img src=\"$this->directory/" . str_replace(".mp4", ".webp", $video) . "\" class=\"thumbnail img-fluid\" width=\"400px\"></a>\n";
 
-                echo "<h4 class=\"video\" id=\"$video\">$video | $fileSize $dataValue </h4><a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a>
-            <img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/> \n";
+                // Echos the data and buttons for file handling, also changes the video name to look nice
+                echo "<h4 class=\"video\" id=\"$video\">" . substr(str_replace(".mp4", "", $video), 0, -13) . "| $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a>
+            <img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h4> \n";
                 // echo "</div>";
                 echo "</div>";
             }

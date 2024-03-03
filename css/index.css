@@ -17,7 +17,6 @@ h1 {
 }
 
 .video {
-    margin-top: 40%;
     display: inline;
     color: white;
 }
@@ -54,8 +53,4 @@ p {
 
 #downloader {
     margin-bottom: 2%;
-}
-
-.row {
-    margin-bottom: 3%;
 }

@@ -7,7 +7,7 @@ function fileDelete(file) {
     xhrRefresh("videos");
 
     // Sends the delete request
-    xhr.open('GET', 'fileHandler.php?delete=' + file);
+    xhr.open('GET', 'fileHandler.php?deleteVideo=' + file + '&deleteImage=' + file.replace(".mp4", ".webp"));
 
     // Send the request 
     xhr.send();
