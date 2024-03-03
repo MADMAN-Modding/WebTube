@@ -76,13 +76,12 @@ class FileHandler
 
             rename("videos/$videoOldName", "videos/$video");
 
-            if($i % 3 === 0 && !$this->row) {
+            if ($i % 5 === 0 && !$this->row && $i != 0) {
+                echo "</div>";
                 $this->row = true;
-            } else if($i % 3 === 0 && $this->row) {
-                $this->row = false;
             }
 
-            if ($i % 5 === 0 && $this->row) {
+            if ($i % 3 === 0 && $this->row || $i == 0) {
                 echo "<div class=\"row\">\n";
                 $this->row = false;
             }
@@ -95,12 +94,6 @@ class FileHandler
             <img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/> \n";
                 // echo "</div>";
                 echo "</div>";
-            }
-
-
-            if ($i % 3 === 0 && !$this->row) {
-                echo "</div>";
-                $this->row = false;
             }
         }
     }
