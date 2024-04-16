@@ -18,6 +18,10 @@
   <h1>Welcome to Web YT-DLP</h1>
   <input type="text" name="url" id="downloader">
   <p> Enter the url of the video</p>
+  <select name="format" id="format">
+    <option value="mp4" autofocus>MP4</option>
+    <option value="m4a">M4A</option>
+  </select>
   <button onclick="fileDownload()">Download!</button>
   <?php
 

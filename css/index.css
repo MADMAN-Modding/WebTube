@@ -4,6 +4,8 @@ body {
     margin-right: auto;
     background-color: gray;
     overflow-x: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 h1 {

@@ -12,7 +12,7 @@ if (isset($_GET["deleteVideo"]) || isset($_GET["deleteImage"])) {
 }
 
 if (isset($_GET["download"])) {
-    exec("cd $handler->directory && yt-dlp -f mp4 --write-thumbnail $_GET[download]");
+    exec("cd $handler->directory && yt-dlp -f $_GET[format] --write-thumbnail $_GET[download]");
 
     $handler->videoOutput();
 }
@@ -87,21 +87,28 @@ class FileHandler
                 $this->row = false;
             }
 
-            if (str_contains($video, ".mp4")) {
+            if(str_contains($video, ".mp4")) {
+                $this->load(".mp4", $video, $fileSize, $dataValue);
+            } else if(str_contains($video, ".m4a")) {
+                $this->load(".m4a", $video, $fileSize, $dataValue);
+            }
 
+        }
+    }
 
+    function load(String $format, String $video, int $fileSize, String $dataValue) {
                 echo "<div class=\"col-sm-4\">\n";
                 // echo "<div class=\"videoContainer\">";
-                echo "<a href=\"$this->directory/$video\" target=\"_blank\"><img src=\"$this->directory/" . str_replace(".mp4", ".webp", $video) . "\" class=\"thumbnail img-fluid\" width=\"400px\"></a>\n";
+                echo "<a href=\"$this->directory/$video\" target=\"_blank\"><img src=\"$this->directory/" . str_replace($format, ".webp", $video) . "\" class=\"thumbnail img-fluid\" width=\"400px\"></a>\n";
 
                 // Echos the data and buttons for file handling, also changes the video name to look nice
-                echo "<h4 class=\"video\" id=\"$video\">" . substr(str_replace(".mp4", "", $video), 0, -13) . "| $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a>
+                echo "<h4 class=\"video\" id=\"$video\">" . substr(str_replace($format, "", $video), 0, -13) . "| $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a>
             <img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h4> \n";
                 // echo "</div>";
                 echo "</div>";
-            }
+            
         }
-    }
+    
 
     function fileSizeCalc($videoFile)
     {

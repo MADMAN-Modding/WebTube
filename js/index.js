@@ -19,7 +19,7 @@ function fileDownload() {
     xhrRefresh("videos");
 
     // Sends the download request
-    xhr.open('GET', 'fileHandler.php?download=' + document.getElementById('downloader').value);
+    xhr.open('GET', 'fileHandler.php?download=' + document.getElementById('downloader').value + "&format=" + document.getElementById("format").value);
 
     // Send the request 
     xhr.send();
