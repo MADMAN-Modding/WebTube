@@ -59,10 +59,10 @@ class FileHandler
             $fileSize = filesize("videos/$videoList[$i]");
             if ($fileSize >= 1073741824) {
                 $fileSize = ((int) (($fileSize / 1073741824) * 100)) / 100;
-                $dataValue = "GB";
+                $dataValue = "GiB";
             } else {
                 $fileSize = ((int) (($fileSize / 1048576) * 100)) / 100;
-                $dataValue = "MB";
+                $dataValue = "MiB";
             }
 
             // Gets rid of illegal characters cause they're annoying
