@@ -6,6 +6,8 @@
 $handler = new FileHandler();
 
 if (isset($_GET["deleteVideo"]) || isset($_GET["deleteImage"])) {
+    // Make sure the files being deleted are valid
+    if (str_contains($_GET["deleteVideo"], ".mp4") || str_contains($_GET["deleteVideo"], ".m4a" && str_contains($_GET["deleteImage"], ".webp")))
     unlink($handler->directory . $_GET["deleteVideo"]);
     unlink($handler->directory . $_GET["deleteImage"]);
     $handler->videoOutput();
