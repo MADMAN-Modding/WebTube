@@ -33,7 +33,7 @@ class FileHandler
         // Scans the videos
         if ($videoFinder = opendir($this->directory)) {
 
-            // Makes the videpList array
+            // Makes the videoList array
             $videoList = [];
 
             // Reads the directory till the end
@@ -66,16 +66,13 @@ class FileHandler
             }
 
             // Gets rid of illegal characters cause they're annoying
-            $illegalChars = array("'", '"', "&");
+            $illegalChars = array("'", "\"", "&");
 
             $videoOldName = $videoList[$i];
 
-            // The variable video is used as it was used in a foreach loop and this was an easier fix
-            foreach ($illegalChars as $char) {
-                $video = str_replace($char, "", $videoList[$i]);
-            }
+            $videoNewName = str_replace($illegalChars, "", $videoList[$i]);
 
-            rename("videos/$videoOldName", "videos/$video");
+            rename("videos/$videoOldName", "videos/$videoNewName");
 
             if ($i + 1 % 5 === 0 && !$this->row && $i != 0) {
                 echo "</div>";
@@ -87,10 +84,10 @@ class FileHandler
                 $this->row = false;
             }
 
-            if(str_contains($video, ".mp4")) {
-                $this->load(".mp4", $video, $fileSize, $dataValue);
-            } else if(str_contains($video, ".m4a")) {
-                $this->load(".m4a", $video, $fileSize, $dataValue);
+            if(str_contains($videoNewName, ".mp4")) {
+                $this->load(".mp4", $videoNewName, $fileSize, $dataValue);
+            } else if(str_contains($videoNewName, ".m4a")) {
+                $this->load(".m4a", $videoNewName, $fileSize, $dataValue);
             }
 
         }
