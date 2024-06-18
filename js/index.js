@@ -55,7 +55,7 @@ function xhrRefresh(id) {
 }
 
 function mkDir() {
-    xhr.open('GET', 'FileHandling/directoryMaker.php?directory=' + document.getElementById('directory').value);
+    xhr.open('GET', 'directoryMaker.php?directory=' + document.getElementById('directory').value);
     xhr.send();
 }
 
