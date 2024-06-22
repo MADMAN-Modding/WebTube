@@ -23,14 +23,8 @@
     <option value="m4a">M4A</option>
   </select>
   <button onclick="fileDownload()">Download!</button>
-  <?php
-
-  // Change for your use and in fileHandler.php
-  // $dir = "/var/www/localhost/htdocs/videos";
-  $dir = "videos";
-
-  mkdir($dir);
-  ?>
+  <input type="text" id="directory">
+  <button onclick="mkDir()">Make Directory</button>
 
   <div id="videos">
   </div>
