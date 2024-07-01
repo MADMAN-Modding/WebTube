@@ -6,8 +6,17 @@ function fileDelete(file) {
     // Calls the refresh function
     xhrRefresh("videos");
 
+    let fileType;
+
+    // Checks to see what to replace the file type with for the image
+    if (file.endsWith("mp4")) {
+        fileType = "mp4";
+    } else {
+        fileType = "m4a";
+    }
+
     // Sends the delete request
-    xhr.open('GET', 'fileHandler.php?deleteVideo=' + file + '&deleteImage=' + file.replace(".mp4", ".webp"));
+    xhr.open('GET', 'FileHandling/fileHandler.php?deleteVideo=' + file + '&deleteImage=' + file.replace(fileType, "webp"));
 
     // Send the request 
     xhr.send();
@@ -19,7 +28,7 @@ function fileDownload() {
     xhrRefresh("videos");
 
     // Sends the download request
-    xhr.open('GET', 'fileHandler.php?download=' + document.getElementById('downloader').value + "&format=" + document.getElementById("format").value);
+    xhr.open('GET', 'FileHandling/fileHandler.php?download=' + document.getElementById('downloader').value + "&format=" + document.getElementById("format").value);
 
     // Send the request 
     xhr.send();
@@ -43,9 +52,14 @@ function xhrRefresh(id) {
     }
 }
 
+function mkDir() {
+    xhr.open('GET', 'FileHandling/directoryMaker.php?directory=' + document.getElementById('directory').value);
+    xhr.send();
+}
+
 // To run on the page load, wahoo
 xhrRefresh("videos");
 
-xhr.open('GET', 'fileHandler.php?refresh="value"');
+xhr.open('GET', 'FileHandling/VideoLister.php');
 
 xhr.send();
