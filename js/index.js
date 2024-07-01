@@ -24,8 +24,7 @@ function fileDelete(file) {
 
 function fileDownload() {
 
-    // Calls the refresh function
-    xhrRefresh("videos");
+
 
     // Sends the download request
     xhr.open('GET', 'FileHandling/fileHandler.php?download=' + document.getElementById('downloader').value + "&format=" + document.getElementById("format").value);
@@ -35,6 +34,9 @@ function fileDownload() {
 
     // Clears the form
     document.getElementById('downloader').value = "";
+
+    // Calls the refresh function
+    xhrRefresh("videos");
 }
 
 function xhrRefresh(id) {
