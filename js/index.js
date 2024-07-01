@@ -14,6 +14,8 @@ function fileDelete(file) {
         fileType = "m4a";
     }
 
+    console.log(file);
+
     // Sends the delete request
     xhr.open('GET', 'FileHandling/fileHandler.php?deleteVideo=' + file + '&deleteImage=' + file.replace(fileType, "webp"));
 
@@ -46,7 +48,6 @@ function xhrRefresh(id) {
             if (xhr.status === 200) {
                 document.getElementById(id).innerHTML =
                     xhr.responseText;
-                console.log(xhr.responseText);
             } else {
                 console.log('Error Code: ' + xhr.status);
                 console.log('Error Message: ' + xhr.statusText);
@@ -61,7 +62,7 @@ function xhrRefresh(id) {
 }
 
 function mkDir() {
-    xhr.open('GET', 'directoryMaker.php?directory=' + document.getElementById('directory').value);
+    xhr.open('GET', 'FileHandling/directoryMaker.php?directory=' + document.getElementById('directory').value);
     xhr.send();
 }
 
