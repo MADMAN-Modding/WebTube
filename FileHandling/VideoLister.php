@@ -6,7 +6,7 @@ $videoLister->videoOutput();
 
 class VideoLister
 {
-    public $row = false;
+    public $row = true;
 
     public $searchDirectory = "../videos";
 
@@ -19,9 +19,11 @@ class VideoLister
 
     function videoOutput()
     {
-
         $this->search($this->searchDirectory, 1);
+    }
 
+    function videoFilter()
+    {
         for ($i = 0; $i < count($this->videoList); $i++) {
 
             // Gets the file size in GB with two decimal places 
@@ -66,12 +68,11 @@ class VideoLister
     {
         echo "<div class=\"col-sm-4\">\n";
         // echo "<div class=\"videoContainer\">";
-        echo "<a href=\"$this->mediaDirectory/$video\" target=\"_blank\"><img src=\"$this->mediaDirectory/" . str_replace($format, ".webp", $video) . "\" class=\"thumbnail img-fluid\" width=\"400px\"></a>\n";
+        echo "<a href=\"$video\" target=\"_blank\"><img src=\"$this->mediaDirectory/" . str_replace($format, ".webp", $video) . "\" class=\"thumbnail img-fluid\" width=\"400px\"></a>\n";
 
         // Echos the data and buttons for file handling, also changes the video name to look nice
         echo "<h4 class=\"video\" id=\"$niceName\">" . substr(str_replace($format, "", $niceName), 0, -13) . "| $fileSize $dataValue <a href=\"videos/$video\" download><img src=\"images/Download Button.png\" class=\"download\"/></a>
             <img src=\"images/Trash Button.png\" id=\"delete\" class=\"delete\" onclick='fileDelete(\"$video\")'/></h4> \n";
-        // echo "</div>";
         echo "</div>";
     }
 
@@ -93,18 +94,30 @@ class VideoLister
 
     function search(String $path, int $count)
     {
+        print_r($this->niceNamesVideoList);
+
+        $this->videoList = null;
+        $this->niceNamesVideoList = null;
+
+        $this->videoList = [];
+        $this->niceNamesVideoList = [];
+
         if ($videoFinder = opendir($path)) {
             // Reads the directory till the end
             while (false !== ($video = readdir($videoFinder))) {
                 // Adds each video to the list
-                if (str_contains($video, ".m") || str_contains($video, ".webp")) {
+                if (str_contains($video, ".m")) {
                     $this->videoList[] = "$path/$video";
                     $this->niceNamesVideoList[] = $video;
-                } else if ($video != "." && $video != "..") {
+                    // $this->load(".mp4", "$path/$video", "12", "GiB", $video);
+                } else if ($video != "." && $video != ".." && !str_contains($video, ".webp")) {
+
                     echo "<h$count>$video</h1>";
-                    $this->search("$path/$video", $count += 1);
+                    $this->search("$path/$video", $count + 1);
                 }
             }
+
+            $this->videoFilter();
 
             // Alphabetically sorts the videos
             natsort($this->videoList);
