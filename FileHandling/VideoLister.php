@@ -8,9 +8,9 @@ class VideoLister
 {
     public $row = true;
 
-    public $searchDirectory = "../videos";
+    public $searchDirectory = "../saves";
 
-    public $mediaDirectory = "../videos";
+    public $mediaDirectory = "../saves";
 
     public $directoryList = [];
 
@@ -47,6 +47,10 @@ class VideoLister
                 closedir($videoFinder);
 
                 $this->videoFilter();
+
+                $this->videoList = [];
+
+                $this->niceNamesVideoList = [];
             }
         }
     }
@@ -73,7 +77,18 @@ class VideoLister
 
             $videoNewName = str_replace($illegalChars, "", $this->videoList[$i]);
 
-            rename("$this->directoryList/$videoOldName", "$this->directoryList/$videoNewName");
+            rename($videoOldName, $videoNewName);
+
+            $extension = null;
+
+            if (str_contains($videoOldName, ".mp4")) {
+                $extension = ".mp4";
+            } else if (str_contains($videoOldName, ".m4a")) {
+                $extension = ".m4a";
+            }
+
+            rename(str_replace($extension, ".webp", $videoOldName), str_replace($extension, ".webp", $videoNewName));
+
 
             if ($i + 1 % 5 === 0 && !$this->row && $i != 0) {
                 echo "</div>";
@@ -133,8 +148,6 @@ class VideoLister
                     $this->search("$path/$video", $count + 1);
                 }
             }
-
-            // $this->videoFilter();
 
             // Alphabetically sorts the videos
             natsort($this->directoryList);

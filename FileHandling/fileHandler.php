@@ -15,5 +15,6 @@ if (isset($_GET["deleteVideo"]) || isset($_GET["deleteImage"])) {
 }
 
 if (isset($_GET["download"])) {
-    exec("cd $videoLister->searchDirectory && yt-dlp -f $_GET[format] --write-thumbnail $_GET[download]");
+    $folder = str_contains($_GET["format"], "mp4") ? "/Videos" : "/Music";
+    exec("cd $videoLister->searchDirectory/$folder && yt-dlp -f $_GET[format] --write-thumbnail $_GET[download]");
 }

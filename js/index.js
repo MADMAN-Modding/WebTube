@@ -22,7 +22,7 @@ function fileDelete(file) {
     // Send the request 
     xhr.send();
 
-        // Calls the refresh function
+    // Calls the refresh function
     xhrRefresh("videos");
 }
 
