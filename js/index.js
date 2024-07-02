@@ -72,3 +72,12 @@ xhrRefresh("videos");
 xhr.open('GET', 'FileHandling/VideoLister.php');
 
 xhr.send();
+
+setInterval(() => {
+    xhrRefresh("videos");
+
+    xhr.open('GET', 'FileHandling/VideoLister.php');
+
+    xhr.send();
+    
+}, 200);
