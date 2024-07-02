@@ -12,19 +12,48 @@ class VideoLister
 
     public $mediaDirectory = "../videos";
 
+    public $directoryList = [];
+
+    // List of videos with the full path
     public $videoList = [];
 
     // List of the videos without the full path
     public $niceNamesVideoList = [];
 
+    public $niceNamesDirectoryList = [];
+
     function videoOutput()
     {
         $this->search($this->searchDirectory, 1);
+
+        for ($i = 0; $i < count($this->directoryList); $i++) {
+            echo "<h1>" . $this->niceNamesDirectoryList[$i] . "</h1>";
+
+            $this->niceNamesVideoList = [];
+            if ($videoFinder = opendir($this->directoryList[$i])) {
+                // Reads the directory till the end
+                while (false !== ($video = readdir($videoFinder))) {
+                    // Adds each video to the list
+                    if (str_contains($video, ".mp4") || str_contains($video, ".m4a")) {
+                        $this->niceNamesVideoList[] = $video;
+                        $this->videoList[] = $this->directoryList[$i] . "/" . $video;
+                    }
+                }
+
+                // Alphabetically sorts the videos
+                natsort($this->niceNamesVideoList);
+
+                // Closes the directory to save resources
+                closedir($videoFinder);
+
+                $this->videoFilter();
+            }
+        }
     }
 
     function videoFilter()
     {
-        for ($i = 0; $i < count($this->videoList); $i++) {
+        for ($i = 0; $i < count($this->niceNamesVideoList); $i++) {
 
             // Gets the file size in GB with two decimal places 
             $fileSize = filesize($this->videoList[$i]);
@@ -44,7 +73,7 @@ class VideoLister
 
             $videoNewName = str_replace($illegalChars, "", $this->videoList[$i]);
 
-            rename("$this->searchDirectory/$videoOldName", "$this->searchDirectory/$videoNewName");
+            rename("$this->directoryList/$videoOldName", "$this->directoryList/$videoNewName");
 
             if ($i + 1 % 5 === 0 && !$this->row && $i != 0) {
                 echo "</div>";
@@ -94,36 +123,26 @@ class VideoLister
 
     function search(String $path, int $count)
     {
-        print_r($this->niceNamesVideoList);
-
-        $this->videoList = null;
-        $this->niceNamesVideoList = null;
-
-        $this->videoList = [];
-        $this->niceNamesVideoList = [];
-
         if ($videoFinder = opendir($path)) {
             // Reads the directory till the end
             while (false !== ($video = readdir($videoFinder))) {
                 // Adds each video to the list
-                if (str_contains($video, ".m")) {
-                    $this->videoList[] = "$path/$video";
-                    $this->niceNamesVideoList[] = $video;
-                    // $this->load(".mp4", "$path/$video", "12", "GiB", $video);
-                } else if ($video != "." && $video != ".." && !str_contains($video, ".webp")) {
-
-                    echo "<h$count>$video</h1>";
+                if ($video != "." && $video != ".." && is_dir("$path/$video")) {
+                    $this->directoryList[] = "$path/$video";
+                    $this->niceNamesDirectoryList[] = $video;
                     $this->search("$path/$video", $count + 1);
                 }
             }
 
-            $this->videoFilter();
+            // $this->videoFilter();
 
             // Alphabetically sorts the videos
-            natsort($this->videoList);
+            natsort($this->directoryList);
 
             // Closes the directory to save resources
             closedir($videoFinder);
+
+            echo "</div>";
         }
     }
 }
