@@ -55,7 +55,9 @@ function xhrRefresh(id) {
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        document.getElementById(id).innerHTML = xhr.responseText;
+        if (document.getElementById(id).innerHTML != xhr.responseText) {
+          document.getElementById(id).innerHTML = xhr.responseText;
+        }
       } else {
         console.log("Error Code: " + xhr.status);
         console.log("Error Message: " + xhr.statusText);
