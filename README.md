@@ -1,5 +1,5 @@
 # Web-yt-dlp
-This is a local host website that allows you to download youtube videos using yt dlp.
+This is a locally hosted website that allows you to download youtube videos using yt dlp.
 
 This project is simply a fancy web ui, with a lot of AJAX and PHP running in the back, with of course yt-dlp downloading the videos.
 
