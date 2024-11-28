@@ -2,3 +2,6 @@ saves/*
 
 target/*
 cargo.lock
+
+.venv
+.vscode
